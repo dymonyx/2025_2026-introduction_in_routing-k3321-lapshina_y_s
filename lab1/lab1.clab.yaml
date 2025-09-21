@@ -10,31 +10,42 @@ topology:
       kind: vr-ros
       image: vrnetlab/mikrotik_routeros:6.47.9
       mgmt-ipv4: 192.168.1.2
+      startup-config: configs/R01.rsc
 
     SW01.L3.01.TEST:
       kind: vr-ros
       image: vrnetlab/mikrotik_routeros:6.47.9
       mgmt-ipv4: 192.168.1.3
+      startup-config: configs/SW01.L3.01.rsc
 
     SW02.L3.01.TEST:
       kind: vr-ros
       image: vrnetlab/mikrotik_routeros:6.47.9
       mgmt-ipv4: 192.168.1.4
+      startup-config: configs/SW02.L3.01.rsc
 
     SW02.L3.02.TEST:
       kind: vr-ros
       image: vrnetlab/mikrotik_routeros:6.47.9
       mgmt-ipv4: 192.168.1.5
+      startup-config: configs/SW02.L3.02.rsc
 
     PC1:
       kind: linux
       image: alpine:latest
       mgmt-ipv4: 192.168.1.6
+      exec:
+        - udhcpc -i eth1
+        - ip route add 10.10.20.0/24 via 10.10.10.1 dev eth1
 
     PC2:
       kind: linux
       image: alpine:latest
       mgmt-ipv4: 192.168.1.7
+      exec:
+        - udhcpc -i eth1
+        - ip route add 10.10.10.0/24 via 10.10.20.1 dev eth1
+
 
   links:
     - endpoints: ["RO1.TEST:eth1", "SW01.L3.01.TEST:eth1"]
