@@ -1,0 +1,58 @@
+name: lab2
+
+mgmt:
+  network: mgmt-network
+  ipv4-subnet: 192.168.1.0/24
+
+topology:
+  nodes:
+    R01.BRL:
+      kind: vr-ros
+      image: vrnetlab/mikrotik_routeros:6.47.9
+      mgmt-ipv4: 192.168.1.2
+      startup-config: configs/R01.BRL.rsc
+
+    R01.MSK:
+      kind: vr-ros
+      image: vrnetlab/mikrotik_routeros:6.47.9
+      mgmt-ipv4: 192.168.1.3
+      startup-config: configs/R01.MSK.rsc
+
+    R01.FRT:
+      kind: vr-ros
+      image: vrnetlab/mikrotik_routeros:6.47.9
+      mgmt-ipv4: 192.168.1.4
+      startup-config: configs/R01.FRT.rsc
+
+    PC1:
+      kind: linux
+      image: alpine:latest
+      mgmt-ipv4: 192.168.1.5
+      exec:
+        - udhcpc -i eth1
+        - ip route add 10.0.2.0/24 via 10.0.1.1 dev eth1
+        - ip route add 10.0.3.0/24 via 10.0.1.1 dev eth1
+
+    PC2:
+      kind: linux
+      image: alpine:latest
+      mgmt-ipv4: 192.168.1.6
+      exec:
+        - udhcpc -i eth1
+        - ip route add 10.0.1.0/24 via 10.0.2.1 dev eth1
+        - ip route add 10.0.3.0/24 via 10.0.2.1 dev eth1
+    PC3:
+      kind: linux
+      image: alpine:latest
+      mgmt-ipv4: 192.168.1.7
+      exec:
+        - udhcpc -i eth1
+        - ip route add 10.0.1.0/24 via 10.0.3.1 dev eth1
+        - ip route add 10.0.2.0/24 via 10.0.3.1 dev eth1
+  links:
+    - endpoints: ["R01.BRL:eth1", "R01.MSK:eth1"]
+    - endpoints: ["R01.BRL:eth2", "R01.FRT:eth1"]
+    - endpoints: ["R01.MSK:eth2", "R01.FRT:eth2"]
+    - endpoints: ["R01.MSK:eth3", "PC1:eth1"]
+    - endpoints: ["R01.FRT:eth3", "PC2:eth1"]
+    - endpoints: ["R01.BRL:eth3", "PC3:eth1"]
