@@ -93,6 +93,7 @@
 # EoMPLS
 
 Проверим настройку EoMPLS и пинг пк:
+
 ![eompls](img/img5.png)
 
 ![ping](img/img6.png)
