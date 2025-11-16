@@ -88,14 +88,14 @@
 ![mpls](img/img3.png)
 
 С помощью traceroute можно увидеть как работает ospf и mpls:
-![ospf-mpls](img/img4)
+![ospf-mpls](img/img4.png)
 
 # EoMPLS
 
 Проверим настройку EoMPLS и пинг пк:
 /mpls ldp neighbor print
-![eompls](img/img6)
-![ping](img/img6)
+![eompls](img/img5.png)
+![ping](img/img6.png)
 
 # Полезные материалы
 
