@@ -93,8 +93,8 @@
 # EoMPLS
 
 Проверим настройку EoMPLS и пинг пк:
-/mpls ldp neighbor print
 ![eompls](img/img5.png)
+
 ![ping](img/img6.png)
 
 # Полезные материалы
