@@ -14,7 +14,7 @@
 
 Схема сети:
 
-![схема сети](image1.png)
+![схема сети](img/image1.png)
 
 Аналогично 3й лабораторной были настроены ip адреса на интерфейсах, ospf и mpls. Пример конфигурации для роутера из Хельсинки:
 
@@ -42,7 +42,7 @@
 
 `ip route print` и `mpls forwarding-table print`
 
-![схема сети](image2.png)
+![mpls_ospf](img/image2.png)
 
 Для настройки iBGP с RR кластером я выбрала в качестве RR роутера R01.LND и присвоила ему `cluster-id = 10.255.255.255`. Роутеры R01.HKI и R01.LBN так же входят в этот кластер, поэтому для них в пире прописывается `route-reflect=yes`, для остальных роутеров - `route-reflect=no`. Также в пире прописывается адрес лупбека роутера назначения (10.0.255.x). В качестве AS был выбран 65123 (всего AS одна). Обязательно прописывается `address-families=l2vpn,vpnv4 `, `l2vpn` для vpls, а `vpnv4` для vrf (так как нам нужно передавать не обычные ipv4 маршруты).
 
@@ -58,7 +58,7 @@
 
 `routing bgp peer print` и `ip route print where bgp`
 
-![схема сети](image3.png)
+![bgp](img/image3.png)
 
 # Часть 1
 
@@ -75,7 +75,7 @@
 
 `ip route print where routing-mark=vrf_devops` и `ping 10.0.255.16 routing-table=vrf_devops src=10.0.255.11`
 
-![схема сети](image4.png)
+![vrf](img/image4.png)
 
 # Часть 2
 
@@ -96,5 +96,5 @@
 
 `interface vpls bgp-vpls print` и `ip dhcp lease print`
 
-![схема сети](image9.png)
-![схема сети](image10.png)
+![vpls](img/image9.png)
+![ping](img/image10.png)
