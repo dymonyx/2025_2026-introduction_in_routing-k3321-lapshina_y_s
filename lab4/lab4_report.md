@@ -93,6 +93,7 @@
 ```
 
 Проверка:
+
 `interface vpls bgp-vpls print` и `ip dhcp lease print`
 
 ![схема сети](image9.png)
